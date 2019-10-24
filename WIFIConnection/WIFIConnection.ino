@@ -6,18 +6,18 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 #include <ESP8266HTTPClient.h>
+#include <ArduinoJson.h>
 #include <WiFiClient.h>
 
-const char* wifiName = "Hajecek more hore";
+const char* wifiName = "YZOlogicka";
 const char* wifiPass = "hajkovi01";
 
 // the setup function runs once when you press reset or power the board
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   pinMode(D7, OUTPUT);
   pinMode(D6, OUTPUT);
   pinMode(D5, OUTPUT);
-  Serial.begin(9600);
 
 
   delay(10);
@@ -58,7 +58,7 @@ void loop() {
     HTTPClient http;
 
     Serial.print("[HTTP] begin...\n");
-    if (http.begin(client, "http://192.168.1.115:8080/light")) {  // HTTP
+    if (http.begin(client, "http://192.168.1.106:8080/svetla/light")) {  // HTTP
 
 
       Serial.print("[HTTP] GET...\n");
@@ -84,7 +84,8 @@ void loop() {
             return;
           }
 
-          String value = doc["status"];
+          String value = payload;
+          value.replace("\"","");
           if (value == "TURNON") {
             digitalWrite(D5, HIGH);
           } else if (value == "TURNOFF") {
@@ -104,7 +105,7 @@ void loop() {
       blikRedLED();
     }
 
-    delay(5000);
+    delay(1000);
   } else {
     blikRedLED();
   }
