@@ -9,7 +9,7 @@
 #include <ArduinoJson.h>
 #include <WiFiClient.h>
 
-const char* wifiName = "YZOlogicka";
+const char* wifiName = "Hajkovi Doma";
 const char* wifiPass = "hajkovi01";
 
 // the setup function runs once when you press reset or power the board
@@ -94,7 +94,6 @@ void loop() {
         }
       } else {
         Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
-        digitalWrite(D5, LOW);
         blikRedLED();
       }
 
